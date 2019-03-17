@@ -1,0 +1,16 @@
+.btn-light:focus, .btn-light.focus {
+    outline: 0;
+    box-shadow: 0 0 0 white;
+}
+
+.media {
+    border: 1px solid #dddddd;
+}
+
+.form input {
+    max-width: 200px;
+}
+
+.modal-content-auto {
+    width: auto;
+}

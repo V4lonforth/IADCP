@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	          http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+              version="2.1">
+
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>sectors</from-outcome>
+            <to-view-id>/sectors.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>orders</from-outcome>
+            <to-view-id>/orders.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/profile.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>landing</from-outcome>
+            <to-view-id>/landing.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/sectors.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sectorCreation</from-outcome>
+            <to-view-id>/sectorCreation.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/sectorCreation.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sectorSaved</from-outcome>
+            <to-view-id>/sectors.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/landing.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/landing.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/landing.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

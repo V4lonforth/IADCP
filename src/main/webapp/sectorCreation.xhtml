@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<f:metadata>
+    <f:viewParam name="regionId" value="#{selectSectorsBean.regionId}"/>
+</f:metadata>
+
+<h:body onload="onLoad();">
+    <ui:composition template="FaceletTemplates/pageTemplate.xhtml">
+        <ui:define name="body">
+            <h:outputScript name="js/polygonController.js"/>
+            <h:outputScript name="js/canvas.js"/>
+            <canvas id="canvas" width="500" height="500"/>
+            <script>
+                #{sectorCreationBean.clearList()}
+                init(#{sectorCreationBean.getParsedShape(selectSectorsBean.regionId)});
+            </script>
+            <h:form id="sectorForm">
+                <h:inputHidden id="x" value="#{sectorCreationBean.x}"/>
+                <h:inputHidden id="y" value="#{sectorCreationBean.y}"/>
+                <h:commandButton id="addPoint" style="visibility: hidden">
+                    <f:ajax execute="@form" listener="#{sectorCreationBean.addPoint()}"/>
+                </h:commandButton>
+                <h:inputText id="sectorName" value="#{sectorCreationBean.name}" p:placeholder="Name">
+                    <f:validateLength minimum="3" maximum="15"/>
+                </h:inputText>
+                <h:commandButton id="removePoint" value="Remove point" onclick="removePoint()">
+                    <f:ajax execute="@form" listener="#{sectorCreationBean.removePoint()}"/>
+                </h:commandButton>
+                <h:commandButton id="clear" value="Clear" onclick="clearPoints()">
+                    <f:ajax execute="@form" listener="#{sectorCreationBean.clearList()}"/>
+                </h:commandButton>
+                <h:commandButton id="save" value="Save" action="#{sectorCreationBean.save()}"/>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

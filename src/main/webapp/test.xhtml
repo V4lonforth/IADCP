@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf = "http://primefaces.org/ui">
+
+<h:head>
+    <ui:include src="FaceletTemplates/headerTemplate.xhtml"/>
+    <h:outputScript name="js/polygonController.js"/>
+    <h:outputScript name="js/canvas.js"/>
+</h:head>
+
+<h:body onload="init(#{testBean.parsedShape});">
+    <canvas id="canvas" width="500" height="500"/>
+
+    <h:form id="sectorForm">
+        <h:inputHidden id="x" value="#{sectorCreationBean.x}"/>
+        <h:inputHidden id="y" value="#{sectorCreationBean.y}"/>
+        <h:commandButton id="addPoint" style="visibility: hidden">
+            <f:ajax execute="@form" listener="#{sectorCreationBean.addPoint()}"/>
+        </h:commandButton>
+        <h:commandButton id="removePoint" value="Remove point" onclick="removePoint()">
+            <f:ajax execute="@form" listener="#{sectorCreationBean.removePoint()}"/>
+        </h:commandButton>
+        <h:commandButton id="clear" value="Clear" onclick="clearPoints()">
+            <f:ajax execute="@form" listener="#{sectorCreationBean.clearList()}"/>
+        </h:commandButton>
+        <h:commandButton id="save" value="Save">
+            <f:ajax execute="@form" listener="#{sectorCreationBean.save()}"/>
+        </h:commandButton>
+    </h:form>
+
+</h:body>
+</html>

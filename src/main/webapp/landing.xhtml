@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="FaceletTemplates/#{authentication.isUserAuthenticated(request) ? 'page' : 'landing' }Template.xhtml">
+    <ui:define name="loginForm">
+        <div class="modal-content modal-content-auto">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginFormLabel">Вход</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <h:form>
+                <div class="modal-body">
+
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Логин: "/>
+                        <p:inputText value="#{loginBean.username}" label="Username"/>
+                        <h:outputText value="Пароль: "/>
+                        <p:password value="#{loginBean.password}" label="Password"/>
+                    </h:panelGrid>
+                </div>
+                <div class="modal-footer">
+                    <h:commandButton styleClass="btn btn-primary" value="Войти" action="#{loginBean.login()}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+    <ui:define name="registerForm">
+        <div class="modal-content modal-content-auto">
+            <h:form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerFormLabel">Регистрация</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Логин: "/>
+                        <p:inputText id="username" required="true" label="username" size="40"
+                                     requiredMessage="Please create a username"
+                                     value="#{registrationBean.username}"/>
+
+                        <h:outputText value="Почтовый адрес: "/>
+                        <p:inputText id="email" required="true" label="email" size="40"
+                                     requiredMessage="Please enter your email address."
+                                     validatorMessage="Invalid email format"
+                                     value="#{registrationBean.email}">
+                            <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
+                        <h:outputText value="Пароль: "/>
+                        <p:password id="password1" value="#{registrationBean.password}" match="pwd2" label="password" required="true"/>
+                        <h:outputText value="Повторите пароль: "/>
+                        <p:password id="password2" value="#{registrationBean.password}" label="password confirmation" required="true"/>
+                    </h:panelGrid>
+                </div>
+                <div class="modal-footer">
+                    <h:commandButton styleClass="btn btn-primary" value="Зарегистрироваться" action="#{loginBean.login()}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+    <ui:define name="body">
+        Контент
+    </ui:define>
+</ui:composition>
+</html>
